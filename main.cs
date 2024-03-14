@@ -1,171 +1,209 @@
 using System;
 
-class Program {
-
-  public static void Main (string[] args) {
-    Console.WriteLine("Choose the Activity that you want to do");
-
-    while(true)
+class Program
+{
+    static void Main(string[] args)
     {
-            Console.WriteLine("\nSelect an activity from 1-5 (O to exit):" );
+        while (true)
+        {
+            Console.WriteLine("Enter activity number (1-5) or 'exit' to close the program: ");
+            string actInput = Console.ReadLine();
 
-            string activityChoice = Console.ReadLine();
-
-            switch (activityChoice)
+            if (actInput.ToLower() == "exit")
             {
-                case "1":
-                    Money();
-                    break;
-                case "2":
-                    FooBar();
-                    break;
-                case "3":
-                    Input();
-                    break;
-                case "4":
-                    Pyramid();
-                    break;
-                case "5":
-                    SumAppend();
-                    break;
-                case "0":
-                    Console.WriteLine("Closing Program...");
-                    return;
-                default:
-                    Console.WriteLine("Invalid input");
-                    break;
+                Console.WriteLine("Closing Program...");
+                break;
+            }
+
+            if (int.TryParse(actInput, out int actNumber))
+            {
+                switch (actNumber)
+                {
+                    case 1:
+                        Money();
+                        break;
+
+                    case 2:
+                        FooBar();
+                        break;
+
+                    case 3:
+                        Input();
+                        break;
+
+                    case 4:
+                        Pyramid();
+                        break;
+
+                    case 5:
+                        SumVSAppend();
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Input. Activity does not exist.");
+                        break;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input. Activity does not exist.");
             }
         }
     }
 
     static void Money()
-      {
-Console.WriteLine("Welcome to Philippine Bank Note Scanner!");
-        Console.WriteLine("Please enter the denomination (in PHP):");
+    {
+        Console.WriteLine("Enter denomination: ");
+        string input = Console.ReadLine();
 
-        if (double.TryParse(Console.ReadLine(), out double denomination))
+        if (decimal.TryParse(input, out decimal denomination))
         {
-            string personality = banknotepersonality(denomination);
-            if (personality != null)
-                Console.WriteLine($"Personality found on {denomination} PHP: {personality}");
-            else
-                Console.WriteLine("No person is found on the banknote.");
+            switch (denomination)
+            {
+                case 0.01m:
+                case 0.05m:
+                case 0.25m:
+                    Console.WriteLine($"No Person is found in PHP {denomination}");
+                    break;
+                case 1:
+                    Console.WriteLine($"Jose Rizal is found in PHP {denomination}");
+                    break;
+                case 5:
+                    Console.WriteLine($"Emilio Aguinaldo is found in PHP {denomination}");
+                    break;
+                case 10:
+                    Console.WriteLine($"Andres Bonifacio and Apolinario Mabini are found in PHP {denomination}");
+                    break;
+                case 20:
+                    Console.WriteLine($"Manuel L. Quezon is found in PHP {denomination}");
+                    break;
+                case 50:
+                    Console.WriteLine($"MSergio Osmena is found in PHP {denomination}");
+                    break;
+                case 100:
+                    Console.WriteLine($"Manuel Roxas is found in PHP {denomination}");
+                    break;
+                case 200:
+                    Console.WriteLine($"Diosdado Macapagal is found in PHP {denomination}");
+                    break;
+                case 500:
+                    Console.WriteLine($"Benigno Aquino Sr. and Corazon Aquino are found in PHP {denomination}");
+                    break;
+                case 1000:
+                    Console.WriteLine($"Jose Abad Santos, Vicente Lim, and Josefa Llanes Escoda are found in PHP {denomination}");
+                    break;
+                default:
+                    Console.WriteLine("Invalid Denomination");
+                    break;
+
+            }
         }
         else
         {
-            Console.WriteLine("Invalid Denomination");
-        }
-    }
-
-    static string banknotepersonality(double denomination)
-    {
-        switch (denomination)
-        {
-            case 1: return "Jose Rizal";
-            case 5: return "Emilio Aguinaldo";
-            case 10: return "Andres Bonifacio, Apolinario Mabini";
-            case 20: return "Manuel L. Quezon";
-            case 50: return "Sergio Osmena";
-            case 100: return "Manuel Roxas";
-            case 200: return "Diosdado Macapagal";
-            case 500: return "Benigno Sr. and Corazon Aquino";
-            case 1000: return "Jose Abad Santos, Vicente Lim, Josefa Llanes Escoda";
-            default: return null;
+            Console.WriteLine("Invalid Input.");
         }
     }
 
     static void FooBar()
     {
-    int num = Convert.ToInt32(Console.ReadLine());
-      for (int i = 1; i <= num; i++){
-        if (i % 3 == 0 && i % 5 == 0){
-          Console.WriteLine($"{i} - Foobar");
-          }
-        else if (i % 5 == 0){
-          Console.WriteLine($"{i} - Bar");
-          }
-        else if (i % 3 == 0){
-          Console.WriteLine($"{i} - Foo");
-          }
-        else{
-          Console.WriteLine(i);
-          }
-    }
-    }
-    static void Input()
+        Console.WriteLine("Enter a value: ");
+        int num = Convert.ToInt32(Console.ReadLine());
 
-    {   Console.WriteLine("Enter text or type 'exit' to end the program:");
-
-          string input;
-          while ((input = Console.ReadLine()) != "exit")
-          {
-              Console.WriteLine("You entered this text: " + input);
-          }
-
-          Console.WriteLine("Closing Program... ");
-          Console.ReadKey();
-      }
-    static void Pyramid()
-      {
-        int num;
-        bool valid;
-
-        do { Console.Write("Enter the number of rows: ");
-             string input = Console.ReadLine();
-
-             valid = int.TryParse(input, out num) && num >= 0;
-
-            if(!valid) {
-                Console.Write("Invalid Input, Input a non-negative Integer:  ");
-            } 
-
-            else if (num == 0) {
-                Environment.Exit(0);
-            }
-            else {
-             for (int i = 1; i <= num; i++) {
-                    for (int j = 1; j <= num - i; j++) {
-                    Console.Write(" ");
-                    }
-
-                    for (int j = 1; j <= i; j++) {
-                        Console.Write("*");
-                        if (j < i) {
-                            Console.Write("*");
-                        }
-                    }
-
-                    Console.WriteLine();
-                }
-            }
-
-        } while (!valid || num != 0);
-     }
-      static void SumAppend()                    {
-        string inputstring = "String of words: ";
-        int sumofintegers = 0;
-
-        while (true)
+        for (int i = 1; i <= num; i++)
         {
-            Console.Write("Enter a string or an integer(Enter 'exit' to exit program): ");
-            string userInput = Console.ReadLine();
-
-            if (userInput == "exit")
+            if (i % 3 == 0 && i % 5 == 0)
             {
-                Console.WriteLine("Exiting the program.");
-                break;
+                Console.WriteLine("FooBar");
             }
-
-            if (int.TryParse(userInput, out int number))
+            else if (i % 3 == 0)
             {
-                sumofintegers += number;
-                Console.WriteLine("Sum of integers: " + sumofintegers);
+                Console.WriteLine("Foo");
+            }
+            else if (i % 5 == 0)
+            {
+                Console.WriteLine("Bar");
             }
             else
             {
-               inputstring += userInput;
-               Console.WriteLine(inputstring); 
+                Console.WriteLine(i);
             }
         }
-      }
+    }
+    static void Input()
+    {
+        Console.WriteLine("Enter text. Type 'exit' to close the program.");
+
+        string input = Console.ReadLine();
+
+        while (input.ToLower() != "exit")
+        {
+            Console.WriteLine("You entered: " + input);
+            input = Console.ReadLine();
+        }
+        Console.WriteLine("Closing Program...");
+    }
+
+    static void Pyramid()
+    {
+       while(true){
+            Console.WriteLine("Enter a number: ");
+            string num = Console.ReadLine();
+
+            if (int.TryParse(num, out int n) && n >= 0){
+                if (n == 0){
+                    Console.WriteLine("Closing Program...");
+                    break;
+                }
+                for (int i = 0; i < n; i++){
+                    for (int j = 0; j < n - i - 1; j++){
+                        Console.Write(" ");
+                    }
+                    for (int j = 0; j < 2 * i + 1; j++){
+                        Console.Write("*");
+                    }
+                    Console.WriteLine();
+                }
+                }
+            else{
+                Console.WriteLine("Invalid Value");
+            }
+        }
+    }
+
+
+    static void SumVSAppend()
+    {
+        int prevNum = 0;
+        string mess = "";
+
+        while (true)
+        {
+            Console.WriteLine("Enter a value: ");
+            string input = Console.ReadLine();
+
+            if (input.ToLower() == "exit")
+            {
+                Console.WriteLine("Closing the program... ");
+                break;
+            }
+
+            int num;
+            bool isNumeric = int.TryParse(input, out num);
+
+            if (isNumeric)
+            {
+                int currNum = int.Parse(input);
+                int sum = prevNum + currNum;
+
+                Console.WriteLine($"Sum of {prevNum} and {currNum} is {sum}");
+                prevNum = currNum;
+            }
+            else
+            {
+                mess += input + "";
+                Console.WriteLine("Current message is " + mess);
+            }
+        }
+    }
 }
